@@ -1,0 +1,637 @@
+/* --- VARIAVEIS GLOBAIS DE COR --- */
+:root {
+    --cor-primaria: #007bff;
+    --cor-primaria-hover: #0056b3;
+    --cor-sucesso: #28a745;
+    --cor-sucesso-hover: #218838; /* Usado como verde mais escuro */
+    
+    --cor-fundo: #f4f7f6;
+    --cor-fundo-branco: #ffffff;
+    --cor-fundo-claro: #f9f9f9;
+    --cor-fundo-escuro: #222;
+    --cor-fundo-ticker: #004085;
+    
+    --cor-texto-principal: #333;
+    --cor-texto-secundario: #555;
+    --cor-texto-branco: #ffffff;
+    --cor-texto-footer: #aaa;
+    
+    --cor-sombra: rgba(0, 0, 0, 0.1);
+    --cor-sombra-leve: rgba(0, 0, 0, 0.06);
+    --cor-sombra-sucesso: rgba(40, 167, 69, 0.3);
+}
+
+/* --- RESET E GLOBAIS --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto-principal);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- HEADER (LOGO E MENU) --- */
+.header {
+    background-color: var(--cor-fundo-branco);
+    box-shadow: 0 2px 8px var(--cor-sombra);
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--cor-primaria-hover);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+/* --- ESTILO DO LOGO (HEADER) --- */
+.logo img {
+    height: 48px;
+    width: auto;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center; 
+    gap: 25px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: var(--cor-texto-secundario);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+}
+
+.nav-links li a:hover {
+    color: var(--cor-primaria-hover);
+}
+
+/* --- Botão CTA (VOTE AGORA) no Menu --- */
+.nav-links li a.nav-cta {
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-branco);
+    padding: 10px 18px; 
+    border-radius: 8px;
+    font-weight: 700;
+    transition: background-color 0.2s ease;
+}
+
+.nav-links li a.nav-cta:hover {
+    background-color: var(--cor-primaria-hover);
+    color: var(--cor-texto-branco); 
+}
+
+
+/* --- MENU HAMBURGER (PARA CELULAR) --- */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.hamburger .bar {
+    width: 25px;
+    height: 3px;
+    background-color: var(--cor-texto-principal);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* --- FAIXA DE NOTÍCIAS (TICKER) --- */
+.ticker-wrap {
+    width: 100%;
+    overflow: hidden; 
+    background-color: var(--cor-fundo-ticker);
+    color: var(--cor-texto-branco);
+    padding: 10px 20px;
+    white-space: nowrap; 
+    position: relative;
+    z-index: 999; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.ticker {
+    transition: opacity 0.4s ease-in-out;
+    opacity: 1;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .ticker-wrap {
+        font-size: 0.85rem;
+    }
+
+    .nav-links {
+        top: 78px;
+        height: calc(100vh - 78px);
+    }
+}
+
+
+/* --- CONTEÚDO PRINCIPAL (INDEX) --- */
+.main-content {
+    padding: 40px 0;
+}
+
+/* --- ESTILOS ESPECÍFICOS DA PÁGINA DE CIDADE --- */
+#votacao-cidade.main-content {
+    background-color: var(--cor-fundo-branco);
+}
+
+.main-content h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    color: var(--cor-fundo-escuro);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+ 
+#votacao-cidade.main-content h1 {
+     margin-bottom: 30px;
+}
+ 
+.main-content h2 {
+    text-align: center;
+    font-size: 1.3rem;
+    color: var(--cor-texto-secundario);
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+.grid-candidatos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+/* --- Card da Cidade --- */
+.caixa-candidato {
+    background-color: var(--cor-fundo-branco);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--cor-sombra-leve);
+    padding: 0; 
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+}
+
+.caixa-candidato:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px var(--cor-sombra);
+}
+
+.caixa-candidato .foto {
+    width: 100%;
+    height: 120px; 
+    background-color: #e9ecef;
+    margin: 0; 
+    border: 0; 
+    box-shadow: none; 
+    object-fit: cover;
+    border-radius: 0; 
+    transition: transform 0.3s ease;
+}
+
+.caixa-candidato:hover .foto {
+    transform: scale(1.05);
+}
+
+.caixa-candidato-conteudo {
+    padding: 15px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px; 
+    flex-grow: 1; 
+}
+
+.caixa-candidato .nome {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--cor-texto-principal);
+    min-height: 40px;    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Botão "Confirma" (Home) --- */
+.btn-escolher {
+    background-color: var(--cor-sucesso);
+    color: var(--cor-texto-branco);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s ease;
+    text-transform: uppercase;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+ 
+.btn-escolher:hover {
+    background-color: var(--cor-sucesso-hover);
+}
+
+.btn-escolher .btn-text {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.btn-escolher .btn-braille {
+    color: var(--cor-sucesso-hover);
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1;
+}
+ 
+/* --- Centraliza o conteúdo da seção Regulamento --- */
+#regulamento .container {
+    text-align: center;
+}
+
+/* --- Botão de Regulamento --- */
+.btn-regulamento {
+    display: inline-block; 
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-branco);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-top: 20px; 
+}
+ 
+.btn-regulamento:hover {
+    background-color: var(--cor-primaria-hover);
+}
+
+
+/* --- Wrapper Responsivo para Vídeo (Usado na Index e Cidades) --- */
+.video-responsive-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%; /* Proporção 16:9 */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--cor-sombra);
+    margin-top: 20px; 
+    background-color: #eee;
+}
+
+.video-responsive-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+ 
+/* --- Wrapper do Botão de Votação (Página Cidade) --- */
+.vote-button-wrapper {
+    text-align: center;
+    padding: 40px 0;
+}
+ 
+/* --- [BOTÃO MODIFICADO PARA FLEX] Botão Principal "Vote Agora" (Página Cidade) --- */
+.btn-vote-external {
+    display: inline-flex; /* <-- MUDADO para inline-flex */
+    flex-direction: column; /* <-- NOVO */
+    align-items: center; /* <-- NOVO */
+    justify-content: center; /* <-- NOVO */
+    gap: 4px; /* <-- NOVO (Espaço entre linhas) */
+
+    background-color: var(--cor-sucesso); 
+    color: var(--cor-texto-branco);
+    padding: 18px 50px; /* Ajuste leve no padding */
+    text-decoration: none;
+    border: none;
+    border-radius: 8px; /* Reduzi um pouco */
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 5px 15px var(--cor-sombra-sucesso);
+    cursor: pointer;
+}
+ 
+.btn-vote-external:hover {
+    background-color: var(--cor-sucesso-hover); 
+    transform: translateY(-3px); 
+}
+
+/* --- [NOVO] Estilo do texto do botão "Vote Agora" --- */
+.btn-vote-external .btn-text {
+    font-size: 1.5rem; 
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1.2;
+}
+
+/* --- [NOVO] Estilo Braille do botão "Vote Agora" --- */
+.btn-vote-external .btn-braille {
+    color: var(--cor-sucesso-hover); /* Verde mais escuro */
+    font-size: 1.1rem; /* Um pouco maior que o do Confirma */
+    font-weight: bold;
+    line-height: 1;
+}
+
+/* --- ESTILOS DAS SEÇÕES DE CONTEÚDO (INDEX) --- */
+.content-section {
+    padding: 50px 5%;
+}
+
+.content-section.bg-white {
+    background-color: var(--cor-fundo-branco);
+}
+ 
+.content-section.bg-light {
+    background-color: var(--cor-fundo-claro);
+}
+
+.content-section.bg-dark {
+    background-color: var(--cor-fundo-escuro);
+    color: var(--cor-texto-branco); 
+}
+
+.content-section.bg-dark h2,
+.content-section.bg-dark h2.section-title,
+.content-section.bg-dark p {
+    color: var(--cor-texto-branco);
+}
+
+.content-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+ 
+.content-section h2.section-title {
+     font-size: 2rem;
+     color: var(--cor-fundo-escuro); 
+     margin-bottom: 30px;
+     text-transform: uppercase;
+}
+
+.content-section p {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+    text-align: center;
+}
+
+/* --- Seção Patrocinadores (INDEX) --- */
+.sponsor-category {
+    margin-bottom: 30px; 
+}
+ 
+.sponsor-category h4 {
+    font-size: 1.2rem;
+    color: #444;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+ 
+.sponsor-grid {
+    display: grid;
+    gap: 20px;
+    align-items: center;
+}
+ 
+.grid-embaixadores { grid-template-columns: repeat(2, 1fr); }
+.grid-ouro { grid-template-columns: repeat(4, 1fr); }
+.grid-midia { grid-template-columns: repeat(6, 1fr); }
+.grid-apoio { grid-template-columns: repeat(4, 1fr); }
+ 
+/* --- Logo do Parceiro (Padrão) --- */
+.sponsor-logo {
+    background-color: var(--cor-fundo-branco);
+    border: 1px solid #eee;
+    border-radius: 8px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    transition: box-shadow 0.2s ease;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+ 
+.sponsor-logo:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background-color: var(--cor-fundo-branco);
+}
+
+.sponsor-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    width: auto;
+    height: auto;
+}
+
+/* --- Estilo Especial para Embaixadores --- */
+.grid-embaixadores .sponsor-logo {
+    height: 200px;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+ 
+.grid-embaixadores .sponsor-logo:hover {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.grid-embaixadores .sponsor-logo img {
+    transition: opacity 0.2s ease;
+    opacity: 0.9;
+}
+
+.grid-embaixadores .sponsor-logo:hover img {
+    opacity: 1;
+}
+ 
+/* --- Estilo dos Ícones Sociais do Rodapé --- */
+.footer-social {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.footer-social a {
+    color: var(--cor-texto-footer);
+    font-size: 1.8rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-social a:hover {
+    color: var(--cor-texto-branco);
+}
+
+
+/* --- Rodapé (Usado em todas as páginas) --- */
+.main-footer {
+    background-color: var(--cor-fundo-escuro);
+    color: var(--cor-texto-footer);
+    padding: 30px 5%;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 0;
+}
+
+.main-footer p {
+    margin: 0;
+    line-height: 1.5;
+}
+ 
+.main-footer .footer-org {
+    font-weight: 600;
+    color: var(--cor-texto-branco);
+}
+ 
+.main-footer .footer-audit {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 5px;
+}
+
+
+/* --- RESPONSIVIDADE (Usado em todas as páginas) --- */
+ 
+@media (max-width: 1024px) {
+    .grid-midia {
+        grid-template-columns: repeat(3, 1fr); 
+    }
+}
+ 
+@media (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        top: 78px;
+        height: calc(100vh - 78px);
+        right: 0;
+        width: 60%;
+        background-color: var(--cor-fundo-branco);
+        flex-direction: column;
+        align-items: center; 
+        justify-content: flex-start;
+        padding-top: 40px;
+        gap: 40px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    }
+
+    .nav-links.active {
+        transform: translateX(0);
+    }
+
+    .nav-links li a.nav-cta {
+        padding: 12px 30px;
+        width: 80%;
+        text-align: center;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+     
+    .main-content h1 {
+        font-size: 1.8rem;
+    }
+     
+    .main-content h2 {
+        font-size: 1.1rem;
+    }
+
+    .caixa-candidato .nome {
+        font-size: 0.9rem;
+        min-height: 36px;
+    }
+     
+    .grid-embaixadores,
+    .grid-ouro,
+    .grid-midia,
+    .grid-apoio {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+
+    /* Responsividade do Botão de Votação */
+    .btn-vote-external {
+        padding: 15px 30px; /* Reduz padding */
+    }
+    .btn-vote-external .btn-text {
+        font-size: 1.2rem; /* Reduz fonte */
+    }
+     .btn-vote-external .btn-braille {
+        font-size: 1rem; /* Reduz fonte */
+    }
+}
+ 
+@media (max-width: 480px) {
+     .grid-embaixadores {
+         grid-template-columns: repeat(1, 1fr); 
+     }
+
+     .grid-embaixadores .sponsor-logo {
+         height: 150px;
+     }
+}

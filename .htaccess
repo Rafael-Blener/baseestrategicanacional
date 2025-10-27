@@ -1,0 +1,6 @@
+RewriteEngine On
+
+# Remove a extensão .html dos arquivos
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^.]+)$ $1.html [L,NC]
